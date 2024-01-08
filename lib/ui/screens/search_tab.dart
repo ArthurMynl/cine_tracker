@@ -17,12 +17,6 @@ class SearchTabState extends State<SearchTab> {
   final TvMaveRepository _repository = TvMaveRepository();
   Timer? _debounce;
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    _debounce?.cancel();
-    super.dispose();
-  }
 
   void _searchShows(String query) async {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
@@ -52,6 +46,7 @@ class SearchTabState extends State<SearchTab> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: _searchController,
+                autofocus: false,
                 decoration: InputDecoration(
                   labelText: 'Search Shows',
                   suffixIcon: IconButton(
@@ -59,7 +54,7 @@ class SearchTabState extends State<SearchTab> {
                     onPressed: () {
                       _searchController.clear();
                       _searchShows('');
-                      FocusScope.of(context).requestFocus(FocusNode());
+                      FocusScope.of(context).unfocus();
                     },
                   ),
                 ),

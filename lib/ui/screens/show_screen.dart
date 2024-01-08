@@ -159,11 +159,11 @@ class ShowScreenState extends State<ShowScreen> {
               },
             ),
             pinned: true,
-            title: Text(show.title),
             actions: [
               IconButton(
                 icon: Icon(
-                    isInWatchlist ? Icons.bookmark : Icons.bookmark_border),
+                  isInWatchlist ? Icons.bookmark : Icons.bookmark_border,
+                ),
                 onPressed: _toggleWatchlist,
               ),
             ],
@@ -172,180 +172,199 @@ class ShowScreenState extends State<ShowScreen> {
             delegate: SliverChildListDelegate(
               [
                 Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Wrap(
-                    spacing: 10,
-                    direction: Axis.horizontal,
-                    children: <Widget>[
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Row(children: [
-                            const Icon(Ionicons.language_outline, size: 16),
-                            const SizedBox(width: 5),
-                            Flexible(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Wrap(
+                        spacing: 10,
+                        direction: Axis.horizontal,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
                                 child: Text(
-                              'Language: ${show.language}',
-                              style: const TextStyle(fontSize: 16),
-                            ))
-                          ]),
-                        ),
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Row(children: [
-                            const Icon(Ionicons.pricetags_outline, size: 16),
-                            const SizedBox(width: 5),
-                            Expanded(
-                              // Use Expanded instead of Flexible
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment
-                                    .start, // Align text to the start
-                                children: [
-                                  Text(
-                                    'Genres: ${show.genres.join(', ')}',
-                                    style: const TextStyle(fontSize: 16),
-                                    softWrap: true,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ]),
-                        ),
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Row(children: [
-                            const Icon(Ionicons.information_circle_outline,
-                                size: 16),
-                            const SizedBox(width: 5),
-                            Text(
-                              'Status: ${show.status}',
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ]),
-                        ),
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Row(children: [
-                            const Icon(Ionicons.hourglass_outline, size: 16),
-                            const SizedBox(width: 5),
-                            Text(
-                              'Average Runtime: ${show.averageRuntime} minutes',
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ]),
-                        ),
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Row(children: [
-                            const Icon(Ionicons.calendar_outline, size: 16),
-                            const SizedBox(width: 5),
-                            Text(
-                              'Premiered: ${show.premiered}',
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ]),
-                        ),
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Row(children: [
-                            const Icon(Ionicons.calendar_outline, size: 16),
-                            const SizedBox(width: 5),
-                            Text(
-                              'Ended: ${show.ended}',
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ]),
-                        ),
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Row(children: [
-                            const Icon(Ionicons.link_outline, size: 16),
-                            const SizedBox(width: 5),
-                            Text.rich(
-                              TextSpan(
-                                text: 'Official Site: ',
-                                style: const TextStyle(fontSize: 16),
-                                children: [
-                                  TextSpan(
-                                    text: shortenedName,
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.blue,
-                                        decoration: TextDecoration.underline),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap =
-                                          () => _launchURL(show.officialSite),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ]),
-                        ),
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Row(children: [
-                            const Icon(Ionicons.star_outline, size: 16),
-                            const SizedBox(width: 5),
-                            Text(
-                              'Rating: ${show.rating ?? 'Not available'}',
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ]),
-                        ),
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Row(children: [
-                            const Icon(Ionicons.time_outline, size: 16),
-                            const SizedBox(width: 5),
-                            Text(
-                              'Schedule: ${_getScheduleString(show.scheduleDay, show.scheduleTime)}',
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ]),
-                        ),
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(
-                              16.0), // Padding inside the card
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              const Text(
-                                'Summary:',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                                  show.title,
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                  overflow: TextOverflow
+                                      .ellipsis, // To handle long text
                                 ),
+                              ), // This will push the elements to the edges
+                              IconButton(
+                                icon: Icon(
+                                  isInWatchlist
+                                      ? Icons.bookmark
+                                      : Icons.bookmark_border,
+                                ),
+                                onPressed: _toggleWatchlist,
                               ),
-                              const SizedBox(
-                                  height: 8), // Space between title and content
-                              Text(
-                                  _removeHtmlTags(show.summary).isNotEmpty
-                                      ? _removeHtmlTags(show.summary)
-                                      : 'No summary available',
-                                  style: const TextStyle(fontSize: 18)),
                             ],
                           ),
+                        ])),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(children: [
+                      const Icon(Ionicons.language_outline, size: 16),
+                      const SizedBox(width: 5),
+                      Flexible(
+                          child: Text(
+                        'Language: ${show.language}',
+                        style: const TextStyle(fontSize: 16),
+                      ))
+                    ]),
+                  ),
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(children: [
+                      const Icon(Ionicons.pricetags_outline, size: 16),
+                      const SizedBox(width: 5),
+                      Expanded(
+                        // Use Expanded instead of Flexible
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment
+                              .start, // Align text to the start
+                          children: [
+                            Text(
+                              'Genres: ${show.genres.join(', ')}',
+                              style: const TextStyle(fontSize: 16),
+                              softWrap: true,
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ]),
+                  ),
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(children: [
+                      const Icon(Ionicons.information_circle_outline, size: 16),
+                      const SizedBox(width: 5),
+                      Text(
+                        'Status: ${show.status}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ]),
+                  ),
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(children: [
+                      const Icon(Ionicons.hourglass_outline, size: 16),
+                      const SizedBox(width: 5),
+                      Text(
+                        'Average Runtime: ${show.averageRuntime} minutes',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ]),
+                  ),
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(children: [
+                      const Icon(Ionicons.calendar_outline, size: 16),
+                      const SizedBox(width: 5),
+                      Text(
+                        'Premiered: ${show.premiered}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ]),
+                  ),
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(children: [
+                      const Icon(Ionicons.calendar_outline, size: 16),
+                      const SizedBox(width: 5),
+                      Text(
+                        'Ended: ${show.ended}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ]),
+                  ),
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(children: [
+                      const Icon(Ionicons.link_outline, size: 16),
+                      const SizedBox(width: 5),
+                      Text.rich(
+                        TextSpan(
+                          text: 'Official Site: ',
+                          style: const TextStyle(fontSize: 16),
+                          children: [
+                            TextSpan(
+                              text: shortenedName,
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => _launchURL(show.officialSite),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ]),
+                  ),
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(children: [
+                      const Icon(Ionicons.star_outline, size: 16),
+                      const SizedBox(width: 5),
+                      Text(
+                        'Rating: ${show.rating ?? 'Not available'}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ]),
+                  ),
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(children: [
+                      const Icon(Ionicons.time_outline, size: 16),
+                      const SizedBox(width: 5),
+                      Text(
+                        'Schedule: ${_getScheduleString(show.scheduleDay, show.scheduleTime)}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ]),
+                  ),
+                ),
+                Card(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.all(16.0), // Padding inside the card
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Text(
+                          'Summary:',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                            height: 8), // Space between title and content
+                        Text(
+                            _removeHtmlTags(show.summary).isNotEmpty
+                                ? _removeHtmlTags(show.summary)
+                                : 'No summary available',
+                            style: const TextStyle(fontSize: 18)),
+                      ],
+                    ),
                   ),
                 ),
               ],
