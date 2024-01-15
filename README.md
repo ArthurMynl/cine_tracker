@@ -6,7 +6,7 @@ This is a project that allows to search for TV shows, and save them in a list of
 
 ## Installation
 
-To install this project you must have Flutter installed, and then run the following command:
+To install this project you must have Flutter 3.13.9 and Dart 3.1.5 installed, and then run the following command:
 
 ```bash
 flutter pub get
